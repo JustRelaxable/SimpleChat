@@ -29,20 +29,20 @@ namespace SimpleChatWebServicesCode.Controllers
                     if(string.IsNullOrEmpty(employees.Single(x => x.IdentityNumber == registerData.IdentityNumber && x.Email == registerData.Email).PasswordHash))
                     {
                         employees.Single(x => x.IdentityNumber == registerData.IdentityNumber).PasswordHash = registerData.PasswordHash;
-                        logs.Add(new Log($"Employee {registerData.Email} has registered to the system.", LogType.Register));
+                        logs.Add(new Net_Log($"Employee {registerData.Email} has registered to the system.", LogType.Register));
                         SqlDatabases.company.SaveChanges();
                         return new List<string>() { JsonConvert.SerializeObject(new Net_OnEmployeeRegister(Status.Successful))};
                     }
                     else
                     {
-                        logs.Add(new Log($"Re-Register attempt by employee {registerData.Email}.", LogType.ReRegister));
+                        logs.Add(new Net_Log($"Re-Register attempt by employee {registerData.Email}.", LogType.ReRegister));
                         SqlDatabases.company.SaveChanges();
                         return new List<string>() { JsonConvert.SerializeObject(new Net_OnEmployeeRegister(Status.EmployeeAlreadyExist)) };
                     }
                 }
                 else
                 {
-                    logs.Add(new Log($"Wrong Identity given by {registerData.Email}.", LogType.WrongIdentity));
+                    logs.Add(new Net_Log($"Wrong Identity given by {registerData.Email}.", LogType.WrongIdentity));
                     SqlDatabases.company.SaveChanges();
                     return new List<string>() { JsonConvert.SerializeObject(new Net_OnEmployeeRegister(Status.IdentityNumberNotFound)) };
                 }

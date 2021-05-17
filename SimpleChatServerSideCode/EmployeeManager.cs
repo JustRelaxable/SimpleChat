@@ -81,12 +81,14 @@ namespace SimpleChatServerSideCode
         public Socket Socket { get; set; }
         public string Email { get; set; }
         public string Token { get; set; }
+        public DateTime LoginTime { get; set; }
 
         public OnlineEmployee(Socket _socket,string _email,string _token)
         {
             Socket = _socket;
             Email = _email;
             Token = _token;
+            LoginTime = DateTime.UtcNow;
         }
         public OnlineEmployee()
         {

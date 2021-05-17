@@ -5,6 +5,40 @@
     "version": "v1"
   },
   "paths": {
+    "/api/DBLog": {
+      "post": {
+        "tags": [
+          "DBLog"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/EmployeeLogin": {
       "post": {
         "tags": [

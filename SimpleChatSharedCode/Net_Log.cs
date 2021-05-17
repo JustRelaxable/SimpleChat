@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimpleChatWebServicesCode.Models
+namespace SimpleChatSharedCode
 {
-    public class Log
+    public class Net_Log
     {
         public int ID { get; set; }
         public DateTime DateTime { get; set; }
         public string LogData { get; set; }
         public LogType LogType { get; set; }
 
-        public Log(string _logdata,LogType _logtype)
+        public Net_Log(string _logdata,LogType _logtype)
         {
             DateTime = DateTime.UtcNow;
             LogData = _logdata;
@@ -22,6 +22,6 @@ namespace SimpleChatWebServicesCode.Models
 
     public enum LogType
     {
-        Register,SuccesfulLogin,ReRegister,WrongIdentity,WrongPassword
+        Register,SuccesfulLogin,ReRegister,WrongIdentity,WrongPassword,ServerChatMessage,PrivateMessage,LogOut
     }
 }

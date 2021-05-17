@@ -64,6 +64,9 @@ namespace SimpleChatServerSideCode
             }
             catch (Exception)
             {
+                var employee = EmployeeManager.GetEmployeeFromSocket(socket);
+                Net_Log log = new Net_Log($"Employee {employee.Email} has logged out. Session time:{DateTime.UtcNow - employee.LoginTime}", LogType.LogOut);
+                WebAPI.instance.DBLogAsync(JsonConvert.SerializeObject(log));
                 EmployeeManager.RemoveOnlineEmployee(socket);
                 //Socket Disconnected?
             }
@@ -80,6 +83,8 @@ namespace SimpleChatServerSideCode
                 {
                     var socketList = EmployeeManager.GetOnlineEmployeeSockets();
                     Net_OnSendMessage onSendMessage = new Net_OnSendMessage(sendMessage.Message, EmployeeManager.GetEmployeeFromSocket(socket).Email, sendMessage.To, true, Status.Successful);
+                    Net_Log log = new Net_Log($"Employee {EmployeeManager.GetEmployeeFromSocket(socket).Email} has sent message to the Server chat.",LogType.ServerChatMessage);
+                    WebAPI.instance.DBLogAsync(JsonConvert.SerializeObject(log));
                     foreach (var sc in socketList)
                     {
                         sc.Send(onSendMessage.GetByte());
@@ -90,6 +95,10 @@ namespace SimpleChatServerSideCode
                     var sender = EmployeeManager.GetEmployeeFromSocket(socket);
                     receiveMessage = new Net_OnSendMessage(sendMessage.Message, sender.Email, sendMessage.To,false, Status.Successful);
                     var receiverSocket = EmployeeManager.GetSocketFromMail(sendMessage.To);
+
+                    Net_Log log = new Net_Log($"Employee {EmployeeManager.GetEmployeeFromSocket(socket).Email} has sent message to {EmployeeManager.GetEmployeeFromSocket(receiverSocket).Email}.", LogType.PrivateMessage);
+                    WebAPI.instance.DBLogAsync(JsonConvert.SerializeObject(log));
+
                     receiverSocket.Send(receiveMessage.GetByte());
                     socket.Send(receiveMessage.GetByte());
                 }
