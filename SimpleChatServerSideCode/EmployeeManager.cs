@@ -34,7 +34,7 @@ namespace SimpleChatServerSideCode
             var employee = new OnlineEmployee();
             if(instance.socketDictionary.TryGetValue(socket,out employee))
             {
-                return employee.Token == token ? true : false;
+                return employee.Token == token;
             }
             else
             {
