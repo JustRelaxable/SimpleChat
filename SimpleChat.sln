@@ -7,9 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleChatWebServicesCode",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleChatServerSideCode", "SimpleChatServerSideCode\SimpleChatServerSideCode.csproj", "{7B42202D-245E-4AE2-AF77-C3895501EB03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleChatClientSideCode", "SimpleChatClientSideCode\SimpleChatClientSideCode.csproj", "{309E1D39-D6E9-436A-B542-6D460A766F08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleChatClientSideCode", "SimpleChatClientSideCode\SimpleChatClientSideCode.csproj", "{309E1D39-D6E9-436A-B542-6D460A766F08}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SimpleChatSharedCode", "SimpleChatSharedCode\SimpleChatSharedCode.shproj", "{4E173476-DE1F-4929-951B-4F063F40EC9F}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SimpleChatSharedCode\SimpleChatSharedCode.projitems*{309e1d39-d6e9-436a-b542-6d460a766f08}*SharedItemsImports = 5
+		SimpleChatSharedCode\SimpleChatSharedCode.projitems*{4e173476-de1f-4929-951b-4f063f40ec9f}*SharedItemsImports = 13
+		SimpleChatSharedCode\SimpleChatSharedCode.projitems*{7b42202d-245e-4ae2-af77-c3895501eb03}*SharedItemsImports = 5
+		SimpleChatSharedCode\SimpleChatSharedCode.projitems*{fd3d27d2-7465-44bc-a7b1-f6bec5f094dd}*SharedItemsImports = 5
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

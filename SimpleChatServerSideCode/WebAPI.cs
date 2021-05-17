@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SimpleChatServerSideCode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerSideCode
+namespace SimpleChatServerSideCode
 {
     static class WebAPI
     {

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>4e173476-de1f-4929-951b-4f063f40ec9f</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SimpleChatSharedCode</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Net_Base.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net_GetOnlineEmployees.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net_OnEmployeeRegister.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net_OnGetOnlineEmployees.cs" />
+    <Compile Include="..\SimpleChatSharedCode\Net_OnSendMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net_SendMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OpCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
+    <Compile Include="..\SimpleChatSharedCode\Status.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net_EmployeeLogin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net_EmployeeRegister.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net_OnEmployeeLogin.cs" />
+  </ItemGroup>
+</Project>

@@ -23,4 +23,6 @@
     </PackageReference>
   </ItemGroup>
 
+  <Import Project="..\SimpleChatSharedCode\SimpleChatSharedCode.projitems" Label="Shared" />
+
 </Project>
