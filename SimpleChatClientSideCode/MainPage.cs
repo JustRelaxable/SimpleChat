@@ -176,7 +176,7 @@ namespace SimpleChatClientSideCode
             }
             else
             {
-                MessageBox.Show("Select a user");
+                MessageBox.Show("Can't send");
             }
         }
 
