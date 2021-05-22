@@ -76,7 +76,7 @@ namespace SimpleChatClientSideCode
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(119, 42);
             this.LoginButton.TabIndex = 4;
-            this.LoginButton.Text = "Login";
+            this.LoginButton.Text = "Log In";
             this.LoginButton.UseVisualStyleBackColor = true;
             this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
