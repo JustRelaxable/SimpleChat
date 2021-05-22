@@ -29,10 +29,8 @@ namespace SimpleChatClientSideCode
         /// </summary>
         private void InitializeComponent()
         {
-            this.IdentityNumberLabel = new System.Windows.Forms.Label();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.VerifyLabel = new System.Windows.Forms.Label();
-            this.IdentityNumberTextBox = new System.Windows.Forms.TextBox();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.VerifyTextBox = new System.Windows.Forms.TextBox();
             this.RegisterButton = new System.Windows.Forms.Button();
@@ -40,19 +38,10 @@ namespace SimpleChatClientSideCode
             this.EmailLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // IdentityNumberLabel
-            // 
-            this.IdentityNumberLabel.AutoSize = true;
-            this.IdentityNumberLabel.Location = new System.Drawing.Point(11, 49);
-            this.IdentityNumberLabel.Name = "IdentityNumberLabel";
-            this.IdentityNumberLabel.Size = new System.Drawing.Size(97, 15);
-            this.IdentityNumberLabel.TabIndex = 8;
-            this.IdentityNumberLabel.Text = "Identity Number:";
-            // 
             // PasswordLabel
             // 
             this.PasswordLabel.AutoSize = true;
-            this.PasswordLabel.Location = new System.Drawing.Point(48, 78);
+            this.PasswordLabel.Location = new System.Drawing.Point(48, 49);
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(60, 15);
             this.PasswordLabel.TabIndex = 1;
@@ -61,22 +50,15 @@ namespace SimpleChatClientSideCode
             // VerifyLabel
             // 
             this.VerifyLabel.AutoSize = true;
-            this.VerifyLabel.Location = new System.Drawing.Point(16, 108);
+            this.VerifyLabel.Location = new System.Drawing.Point(16, 78);
             this.VerifyLabel.Name = "VerifyLabel";
             this.VerifyLabel.Size = new System.Drawing.Size(92, 15);
             this.VerifyLabel.TabIndex = 2;
             this.VerifyLabel.Text = "Verify Password:";
             // 
-            // IdentityNumberTextBox
-            // 
-            this.IdentityNumberTextBox.Location = new System.Drawing.Point(114, 46);
-            this.IdentityNumberTextBox.Name = "IdentityNumberTextBox";
-            this.IdentityNumberTextBox.Size = new System.Drawing.Size(229, 23);
-            this.IdentityNumberTextBox.TabIndex = 3;
-            // 
             // PasswordTextBox
             // 
-            this.PasswordTextBox.Location = new System.Drawing.Point(114, 75);
+            this.PasswordTextBox.Location = new System.Drawing.Point(114, 46);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(229, 23);
@@ -84,7 +66,7 @@ namespace SimpleChatClientSideCode
             // 
             // VerifyTextBox
             // 
-            this.VerifyTextBox.Location = new System.Drawing.Point(114, 105);
+            this.VerifyTextBox.Location = new System.Drawing.Point(114, 75);
             this.VerifyTextBox.Name = "VerifyTextBox";
             this.VerifyTextBox.PasswordChar = '*';
             this.VerifyTextBox.Size = new System.Drawing.Size(229, 23);
@@ -92,9 +74,9 @@ namespace SimpleChatClientSideCode
             // 
             // RegisterButton
             // 
-            this.RegisterButton.Location = new System.Drawing.Point(16, 144);
+            this.RegisterButton.Location = new System.Drawing.Point(69, 122);
             this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(327, 38);
+            this.RegisterButton.Size = new System.Drawing.Size(229, 38);
             this.RegisterButton.TabIndex = 6;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = true;
@@ -120,31 +102,28 @@ namespace SimpleChatClientSideCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 201);
+            this.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.ClientSize = new System.Drawing.Size(364, 172);
             this.Controls.Add(this.EmailTextBox);
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.RegisterButton);
             this.Controls.Add(this.VerifyTextBox);
             this.Controls.Add(this.PasswordTextBox);
-            this.Controls.Add(this.IdentityNumberTextBox);
             this.Controls.Add(this.VerifyLabel);
             this.Controls.Add(this.PasswordLabel);
-            this.Controls.Add(this.IdentityNumberLabel);
             this.Name = "RegisterPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RegisterPage";
+            this.Text = "SimpleChat - Register";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RegisterPage_FormClosed);
+            this.Load += new System.EventHandler(this.RegisterPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label IdentityNumberLabel;
         private System.Windows.Forms.Label PasswordLabel;
         private System.Windows.Forms.Label VerifyLabel;
-        private System.Windows.Forms.TextBox IdentityNumberTextBox;
         private System.Windows.Forms.TextBox PasswordTextBox;
         private System.Windows.Forms.TextBox VerifyTextBox;
         private System.Windows.Forms.Button RegisterButton;

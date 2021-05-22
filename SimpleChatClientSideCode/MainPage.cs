@@ -61,18 +61,18 @@ namespace SimpleChatClientSideCode
                 else
                 {
                     List<Net_OnSendMessage> messagesList = new List<Net_OnSendMessage>();
-                    if (messagesDic.TryGetValue("ServerChat", out messagesList))
+                    if (messagesDic.TryGetValue("Active Users", out messagesList))
                     {
-                        messagesDic["ServerChat"].Add(e);
+                        messagesDic["Active Users"].Add(e);
                     }
                     else
                     {
-                        messagesDic.Add("ServerChat", messagesList);
-                        messagesDic["ServerChat"] = new List<Net_OnSendMessage>();
-                        messagesDic["ServerChat"].Add(e);
+                        messagesDic.Add("Active Users", messagesList);
+                        messagesDic["Active Users"] = new List<Net_OnSendMessage>();
+                        messagesDic["Active Users"].Add(e);
                     }
 
-                    if ((string)OnlineEmployeeListBox.SelectedItem == "ServerChat")
+                    if ((string)OnlineEmployeeListBox.SelectedItem == "Active Users")
                     {
                         richTextBox.Text += $"{e.From}:{e.Message}";
                         richTextBox.Select(richTextBox.GetFirstCharIndexOfCurrentLine(), e.From.Length);
@@ -110,19 +110,19 @@ namespace SimpleChatClientSideCode
                 else
                 {
                     List<Net_OnSendMessage> messagesList = new List<Net_OnSendMessage>();
-                    if (messagesDic.TryGetValue("ServerChat", out messagesList))
+                    if (messagesDic.TryGetValue("Active Users", out messagesList))
                     {
-                        messagesDic["ServerChat"].Add(e);
+                        messagesDic["Active Users"].Add(e);
                     }
                     else
                     {
-                        messagesDic.Add("ServerChat", messagesList);
-                        messagesDic["ServerChat"] = new List<Net_OnSendMessage>();
-                        messagesDic["ServerChat"].Add(e);
+                        messagesDic.Add("Active Users", messagesList);
+                        messagesDic["Active Users"] = new List<Net_OnSendMessage>();
+                        messagesDic["Active Users"].Add(e);
                     }
 
 
-                    if ((string)OnlineEmployeeListBox.SelectedItem == "ServerChat")
+                    if ((string)OnlineEmployeeListBox.SelectedItem == "Active Users")
                     {
                         richTextBox.Text += $"{e.From}:{e.Message}";
                         richTextBox.Select(richTextBox.GetFirstCharIndexOfCurrentLine(), e.From.Length);
@@ -149,7 +149,7 @@ namespace SimpleChatClientSideCode
                     OnlineEmployeeListBox.Items.Add(e.EmployeeMails[i]);
                 }
             }
-            OnlineEmployeeListBox.Items.Add("ServerChat");
+            OnlineEmployeeListBox.Items.Add("Active Users");
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
@@ -162,7 +162,7 @@ namespace SimpleChatClientSideCode
         {
             if(OnlineEmployeeListBox.SelectedItem != null && (string)OnlineEmployeeListBox.SelectedItem != EmployeeCreditentals.Email)
             {
-                if((string)OnlineEmployeeListBox.SelectedItem == "ServerChat")
+                if((string)OnlineEmployeeListBox.SelectedItem == "Active Users")
                 {
                     Net_SendMessage sendMessage = new Net_SendMessage(MessageField.Text, (string)OnlineEmployeeListBox.SelectedItem, EmployeeCreditentals.Token, true);
                     SocketManager.ClientSocket.SendFromManager(sendMessage);
@@ -176,7 +176,7 @@ namespace SimpleChatClientSideCode
             }
             else
             {
-                MessageBox.Show("Can't send");
+                MessageBox.Show("Select a user");
             }
         }
 

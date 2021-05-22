@@ -40,7 +40,7 @@ namespace SimpleChatClientSideCode
             // EmailLabel
             // 
             this.EmailLabel.AutoSize = true;
-            this.EmailLabel.Location = new System.Drawing.Point(36, 16);
+            this.EmailLabel.Location = new System.Drawing.Point(36, 20);
             this.EmailLabel.Name = "EmailLabel";
             this.EmailLabel.Size = new System.Drawing.Size(39, 15);
             this.EmailLabel.TabIndex = 0;
@@ -49,7 +49,7 @@ namespace SimpleChatClientSideCode
             // PasswordLabel
             // 
             this.PasswordLabel.AutoSize = true;
-            this.PasswordLabel.Location = new System.Drawing.Point(15, 46);
+            this.PasswordLabel.Location = new System.Drawing.Point(15, 49);
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(60, 15);
             this.PasswordLabel.TabIndex = 1;
@@ -57,7 +57,7 @@ namespace SimpleChatClientSideCode
             // 
             // EmailTextBox
             // 
-            this.EmailTextBox.Location = new System.Drawing.Point(81, 13);
+            this.EmailTextBox.Location = new System.Drawing.Point(81, 17);
             this.EmailTextBox.Name = "EmailTextBox";
             this.EmailTextBox.Size = new System.Drawing.Size(229, 23);
             this.EmailTextBox.TabIndex = 2;
@@ -72,9 +72,9 @@ namespace SimpleChatClientSideCode
             // 
             // LoginButton
             // 
-            this.LoginButton.Location = new System.Drawing.Point(81, 75);
+            this.LoginButton.Location = new System.Drawing.Point(191, 93);
             this.LoginButton.Name = "LoginButton";
-            this.LoginButton.Size = new System.Drawing.Size(82, 42);
+            this.LoginButton.Size = new System.Drawing.Size(119, 42);
             this.LoginButton.TabIndex = 4;
             this.LoginButton.Text = "Login";
             this.LoginButton.UseVisualStyleBackColor = true;
@@ -82,11 +82,11 @@ namespace SimpleChatClientSideCode
             // 
             // RegisterPageButton
             // 
-            this.RegisterPageButton.Location = new System.Drawing.Point(169, 75);
+            this.RegisterPageButton.Location = new System.Drawing.Point(12, 93);
             this.RegisterPageButton.Name = "RegisterPageButton";
-            this.RegisterPageButton.Size = new System.Drawing.Size(141, 42);
+            this.RegisterPageButton.Size = new System.Drawing.Size(119, 42);
             this.RegisterPageButton.TabIndex = 5;
-            this.RegisterPageButton.Text = "Go to Register Page";
+            this.RegisterPageButton.Text = "Registeration";
             this.RegisterPageButton.UseVisualStyleBackColor = true;
             this.RegisterPageButton.Click += new System.EventHandler(this.RegisterPageButton_Click);
             // 
@@ -94,17 +94,17 @@ namespace SimpleChatClientSideCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 122);
+            this.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.ClientSize = new System.Drawing.Size(322, 147);
             this.Controls.Add(this.RegisterPageButton);
             this.Controls.Add(this.LoginButton);
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.EmailTextBox);
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.EmailLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "LoginPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login";
+            this.Text = "SimpleChat - Login";
             this.ResumeLayout(false);
             this.PerformLayout();
 
