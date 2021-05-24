@@ -52,7 +52,7 @@ namespace SimpleChatClientSideCode
                     {
                             using (StreamWriter sw = new StreamWriter(cs))
                             {
-                                sw.Write(data);
+                                sw.Write(data + "\0");
                                 sw.Flush();
                             }
                     }
@@ -95,6 +95,7 @@ namespace SimpleChatClientSideCode
                 byte[] rec_bytes = new byte[1024];
                 ArraySegment<byte> bytesSeg = new ArraySegment<byte>(rec_bytes);
                 int bytesRec = await ClientSocket.ReceiveAsync(bytesSeg, SocketFlags.None);
+                ReceiveAsync();
                 //int bytesRec = await SslStream.ReadAsync(bytesSeg);
                 string data = Encoding.ASCII.GetString(rec_bytes, 0, bytesRec);
                 Net_Base basePacket = JsonConvert.DeserializeObject<Net_Base>(data);
@@ -107,20 +108,27 @@ namespace SimpleChatClientSideCode
                         break;
                     case OpCode.OnEmployeeRegister:
                         EventManager.OnEmployeeRegister(JsonConvert.DeserializeObject<Net_OnEmployeeRegister>(data));
+                        SocketManager.ClientSocket.SendFromManager(new Net_Ack());
                         break;
                     case OpCode.OnEmployeeLogin:
                         EventManager.OnEmployeeLogin(JsonConvert.DeserializeObject<Net_OnEmployeeLogin>(data));
+                        SocketManager.ClientSocket.SendFromManager(new Net_Ack());
                         break;
                     case OpCode.OnGetOnlineEmployees:
                         EventManager.OnGetOnlineEmployees(JsonConvert.DeserializeObject<Net_OnGetOnlineEmployees>(data));
+                        SocketManager.ClientSocket.SendFromManager(new Net_Ack());
                         break;
                     case OpCode.OnSendMessage:
                         EventManager.OnSendMessage(JsonConvert.DeserializeObject<Net_OnSendMessage>(data));
+                        SocketManager.ClientSocket.SendFromManager(new Net_Ack());
+                        break;
+                    case OpCode.OnGetDBLogs:
+                        EventManager.OnGetDBLogs(JsonConvert.DeserializeObject<Net_OnGetDBLogs>(data));
+                        SocketManager.ClientSocket.SendFromManager(new Net_Ack());
                         break;
                     default:
                         break;
                 }
-                ReceiveAsync();
             }
             catch (Exception)
             {

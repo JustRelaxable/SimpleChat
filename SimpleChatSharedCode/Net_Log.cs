@@ -12,6 +12,11 @@ namespace SimpleChatSharedCode
         public string LogData { get; set; }
         public LogType LogType { get; set; }
 
+        public Net_Log()
+        {
+
+        }
+
         public Net_Log(string _logdata,LogType _logtype)
         {
             DateTime = DateTime.UtcNow;

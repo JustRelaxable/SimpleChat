@@ -13,7 +13,8 @@ namespace SimpleChatClientSideCode
         public static event EventHandler<Net_OnEmployeeLogin> EmployeeLogin;
         public static event EventHandler<Net_OnGetOnlineEmployees> GetOnlineEmployees;
         public static event EventHandler<Net_OnSendMessage> SendMessage;
-        
+        public static event EventHandler<Net_OnGetDBLogs> GetDBLogs;
+
         public static void OnSendMessage(Net_OnSendMessage response)
         {
             SendMessage.Invoke(null, response);
@@ -31,6 +32,11 @@ namespace SimpleChatClientSideCode
         public static void OnEmployeeRegister(Net_OnEmployeeRegister response)
         {
             EmployeeRegister.Invoke(null,response);
+        }
+
+        public static void OnGetDBLogs(Net_OnGetDBLogs response)
+        {
+            GetDBLogs.Invoke(null, response);
         }
     }
 }

@@ -74,6 +74,11 @@ namespace SimpleChatServerSideCode
         {
             return instance.socketDictionary.Keys.ToList();
         }
+
+        public static bool IsEmployeeSuperuser(Socket socket)
+        {
+            return instance.socketDictionary[socket].IsSuperuser;
+        }
     }
 
     class OnlineEmployee
@@ -81,13 +86,15 @@ namespace SimpleChatServerSideCode
         public Socket Socket { get; set; }
         public string Email { get; set; }
         public string Token { get; set; }
+        public bool IsSuperuser { get; set; }
         public DateTime LoginTime { get; set; }
 
-        public OnlineEmployee(Socket _socket,string _email,string _token)
+        public OnlineEmployee(Socket _socket,string _email,string _token,bool _isSuperuser)
         {
             Socket = _socket;
             Email = _email;
             Token = _token;
+            IsSuperuser = _isSuperuser;
             LoginTime = DateTime.UtcNow;
         }
         public OnlineEmployee()

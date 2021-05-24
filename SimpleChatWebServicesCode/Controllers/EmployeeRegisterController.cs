@@ -24,11 +24,11 @@ namespace SimpleChatWebServicesCode.Controllers
                 Net_EmployeeRegister registerData = JsonConvert.DeserializeObject<Net_EmployeeRegister>(value);
                 var employees = SqlDatabases.company.Employees;
                 var logs = SqlDatabases.company.Logs;
-                if (employees.Any(x=>x.IdentityNumber == registerData.IdentityNumber))
+                if (employees.Any(x=>x.Email == registerData.Email))
                 {
-                    if(string.IsNullOrEmpty(employees.Single(x => x.IdentityNumber == registerData.IdentityNumber && x.Email == registerData.Email).PasswordHash))
+                    if(string.IsNullOrEmpty(employees.Single(x => x.Email == registerData.Email).PasswordHash))
                     {
-                        employees.Single(x => x.IdentityNumber == registerData.IdentityNumber).PasswordHash = registerData.PasswordHash;
+                        employees.Single(x => x.Email == registerData.Email).PasswordHash = registerData.PasswordHash;
                         logs.Add(new Net_Log($"Employee {registerData.Email} has registered to the system.", LogType.Register));
                         SqlDatabases.company.SaveChanges();
                         return new List<string>() { JsonConvert.SerializeObject(new Net_OnEmployeeRegister(Status.Successful))};

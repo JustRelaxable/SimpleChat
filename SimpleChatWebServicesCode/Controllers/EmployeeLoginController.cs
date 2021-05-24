@@ -28,13 +28,14 @@ namespace SimpleChatWebServicesCode.Controllers
                     //GiveToken On Server Side
                     SqlDatabases.company.Logs.Add(new Net_Log($"Successful login by {employeeLogin.Email}.", LogType.SuccesfulLogin));
                     SqlDatabases.company.SaveChanges();
-                    return new List<string> { JsonConvert.SerializeObject(new Net_OnEmployeeLogin(null,Status.SuccessfulLogin)) };
+                    var isSuperUser = SqlDatabases.company.Employees.Single(x => x.Email == employeeLogin.Email).IsSuperuser;
+                    return new List<string> { JsonConvert.SerializeObject(new Net_OnEmployeeLogin(null,isSuperUser,Status.SuccessfulLogin)) };
                 }
                 else
                 {
                     SqlDatabases.company.Logs.Add(new Net_Log($"Wrong password given by {employeeLogin.Email}.", LogType.WrongPassword));
                     SqlDatabases.company.SaveChanges();
-                    return new List<string> { JsonConvert.SerializeObject(new Net_OnEmployeeLogin(null,Status.WrongEmailOrPassword)) };
+                    return new List<string> { JsonConvert.SerializeObject(new Net_OnEmployeeLogin(null,false,Status.WrongEmailOrPassword)) };
                 }
             }
             catch (Exception)

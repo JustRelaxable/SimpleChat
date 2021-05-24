@@ -23,7 +23,21 @@ namespace SimpleChatClientSideCode
 
         private void EmployeeRegister(object sender, Net_OnEmployeeRegister e)
         {
-            MessageBox.Show(e.ToString());
+            switch (e.Status)
+            {
+                case Status.Successful:
+                    MessageBox.Show("Successful");
+                    break;
+                case Status.EmployeeAlreadyExist:
+                    MessageBox.Show("Employee Already Exists");
+                    break;
+                case Status.IdentityNumberNotFound:
+                    MessageBox.Show("Email not found!");
+                    break;
+                default:
+                    break;
+            }
+            
         }
 
         private void RegisterPage_FormClosed(object sender, FormClosedEventArgs e)
@@ -38,7 +52,7 @@ namespace SimpleChatClientSideCode
                 if(PasswordTextBox.Text == VerifyTextBox.Text)
                 {
                     //Send to server
-                    Net_EmployeeRegister employeeRegister = new Net_EmployeeRegister(EmailTextBox.Text, null, Utilities.ComputeSha256Hash(VerifyTextBox.Text));
+                    Net_EmployeeRegister employeeRegister = new Net_EmployeeRegister(EmailTextBox.Text, Utilities.ComputeSha256Hash(VerifyTextBox.Text));
                     SocketManager.ClientSocket.SendFromManager(employeeRegister);
                     
                 }

@@ -26,11 +26,22 @@ namespace SimpleChatClientSideCode
             switch (e.Status)
             {
                 case Status.SuccessfulLogin:
-                    EmployeeCreditentals.Token = e.Token;
-                    EmployeeCreditentals.Email = EmailTextBox.Text;//Should be changed
-                    MainPage mainPage = new MainPage(this);
-                    mainPage.Show();
-                    this.Hide();
+                    if (e.IsSuperuser)
+                    {
+                        EmployeeCreditentals.Token = e.Token;
+                        EmployeeCreditentals.Email = EmailTextBox.Text;//Should be changed
+                        MainPageSu mainPage = new MainPageSu(this);
+                        mainPage.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        EmployeeCreditentals.Token = e.Token;
+                        EmployeeCreditentals.Email = EmailTextBox.Text;//Should be changed
+                        MainPage mainPage = new MainPage(this);
+                        mainPage.Show();
+                        this.Hide();
+                    }
                     break;
                 case Status.WrongEmailOrPassword:
                     MessageBox.Show("Wrong Email or Password Given");

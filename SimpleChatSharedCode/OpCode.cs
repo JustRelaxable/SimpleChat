@@ -10,6 +10,8 @@ namespace SimpleChatSharedCode
         EmployeeRegister,OnEmployeeRegister,
         EmployeeLogin,OnEmployeeLogin,
         GetOnlineEmployees,OnGetOnlineEmployees,
-        SendMessage,OnSendMessage
+        SendMessage,OnSendMessage,
+        GetDBlogs,OnGetDBLogs,
+        Ack
     }
 }

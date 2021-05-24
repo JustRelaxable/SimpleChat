@@ -9,10 +9,13 @@
     <Import_RootNamespace>SimpleChatSharedCode</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Net_Ack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net_Base.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net_GetDBLogs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net_GetOnlineEmployees.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net_Log.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net_OnEmployeeRegister.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net_OnGetDBLogs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net_OnGetOnlineEmployees.cs" />
     <Compile Include="..\SimpleChatSharedCode\Net_OnSendMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Net_SendMessage.cs" />
