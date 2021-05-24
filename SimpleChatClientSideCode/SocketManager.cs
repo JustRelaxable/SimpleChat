@@ -19,11 +19,13 @@ namespace SimpleChatClientSideCode
     static class SocketManager
     {
         public static Socket ClientSocket { get; private set; }
+        /*
         private static readonly string ClientCertificateFile = @"C:\Users\JustRelaxable\Desktop\Source\SslClient\SslClient\client.pfx";
         private static readonly string ClientCertificatePassword = null;
         private static readonly string ServerCertificateName = "MyServer";
         static X509Certificate2 clientCertificate = new X509Certificate2(ClientCertificateFile, ClientCertificatePassword);
         static X509CertificateCollection clientCertificateCollection = new X509CertificateCollection(new X509Certificate[] { clientCertificate });
+        */
         static SocketManager()
         {
             ClientSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);

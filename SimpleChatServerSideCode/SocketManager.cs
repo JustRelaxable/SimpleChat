@@ -18,9 +18,11 @@ namespace SimpleChatServerSideCode
     class SocketManager
     {
         private Socket serverSocket;
+        /*
         private static readonly string ServerCertificateFile = @"C:\Users\JustRelaxable\Desktop\Source\SslServer\SslServer\server.pfx";
         private static readonly string ServerCertificatePassword = null;
         X509Certificate2 serverCertificate = new X509Certificate2(ServerCertificateFile, ServerCertificatePassword);
+        */
         public SocketManager()
         {
             serverSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
