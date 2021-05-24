@@ -10,16 +10,25 @@ using SimpleChatSharedCode;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
+using System.Security.Authentication;
 
 namespace SimpleChatClientSideCode
 {
     static class SocketManager
     {
         public static Socket ClientSocket { get; private set; }
+        private static readonly string ClientCertificateFile = @"C:\Users\JustRelaxable\Desktop\Source\SslClient\SslClient\client.pfx";
+        private static readonly string ClientCertificatePassword = null;
+        private static readonly string ServerCertificateName = "MyServer";
+        static X509Certificate2 clientCertificate = new X509Certificate2(ClientCertificateFile, ClientCertificatePassword);
+        static X509CertificateCollection clientCertificateCollection = new X509CertificateCollection(new X509Certificate[] { clientCertificate });
         static SocketManager()
         {
             ClientSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 53869));
+            
             ReceiveAsync();
         }
         public static void SendFromManager(this Socket socket,Net_Base packet)
@@ -28,12 +37,46 @@ namespace SimpleChatClientSideCode
             {
                 var data = JsonConvert.SerializeObject(packet);
                 var encodedData = Encoding.ASCII.GetBytes(data);
-                socket.Send(encodedData);
+                
+                byte[] dataToSend = new byte[1024];
+
+                AesManaged aes = new AesManaged();
+                aes.Padding = PaddingMode.Zeros;
+                ICryptoTransform encryptor = aes.CreateEncryptor("1234567812345678".GetASCIIBytes(), "1234567812345678".GetASCIIBytes());
+
+                using (MemoryStream ms = new MemoryStream(dataToSend))
+                {
+                    using (CryptoStream cs = new CryptoStream(ms,encryptor,CryptoStreamMode.Write))
+                    {
+                            using (StreamWriter sw = new StreamWriter(cs))
+                            {
+                                sw.Write(data);
+                                sw.Flush();
+                            }
+                    }
+                }
+                
+                /*
+                using (var sslStream = new SslStream(new NetworkStream(socket), false, App_CertificateValidation))
+                {
+                    sslStream.AuthenticateAsClient(ServerCertificateName, clientCertificateCollection, SslProtocols.Tls12, false);
+                    sslStream.Write(encodedData);
+                }
+                */
+                socket.Send(dataToSend);
             }
             else
             {
                 throw new Exception();
             }
+        }
+
+        private static bool App_CertificateValidation(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            if (sslPolicyErrors == SslPolicyErrors.None) { return true; }
+            if (sslPolicyErrors == SslPolicyErrors.RemoteCertificateChainErrors) { return true; } //we don't have a proper certificate tree
+            Console.WriteLine("*** SSL Error: " + sslPolicyErrors.ToString());
+            return false;
         }
         public static async Task<string> ReceiveFromManagerAsync(this Socket socket)
         {

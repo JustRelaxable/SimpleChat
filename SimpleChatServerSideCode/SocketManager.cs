@@ -7,12 +7,20 @@ using System.Net.Sockets;
 using System.Net;
 using Newtonsoft.Json;
 using SimpleChatSharedCode;
+using System.Security.Cryptography;
+using System.IO;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Authentication;
 
 namespace SimpleChatServerSideCode
 {
     class SocketManager
     {
         private Socket serverSocket;
+        private static readonly string ServerCertificateFile = @"C:\Users\JustRelaxable\Desktop\Source\SslServer\SslServer\server.pfx";
+        private static readonly string ServerCertificatePassword = null;
+        X509Certificate2 serverCertificate = new X509Certificate2(ServerCertificateFile, ServerCertificatePassword);
         public SocketManager()
         {
             serverSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
@@ -33,11 +41,55 @@ namespace SimpleChatServerSideCode
         {
             try
             {
+                /*
+                using (var sslStream = new SslStream(new NetworkStream(socket), false, App_CertificateValidation))
+                {
+                    sslStream.AuthenticateAsServer(serverCertificate, true, SslProtocols.Tls12, false);
+
+                    while (true)
+                    {
+                        var inputBuffer = new byte[1024];
+                        var inputBytes = 0;
+                        while (inputBytes == 0)
+                        {
+                            inputBytes = sslStream.Read(inputBuffer, 0, inputBuffer.Length);
+                        }
+                        var inputMessage = Encoding.ASCII.GetString(inputBuffer, 0, inputBytes);
+                    }
+                }
+                */
+                
                 byte[] rec_bytes = new byte[1024];
                 ArraySegment<byte> bytesSeg = new ArraySegment<byte>(rec_bytes);
                 int bytesRec = await socket.ReceiveAsync(bytesSeg, SocketFlags.None);
+                
+
+                
+                byte[] d = new byte[1024];
+
+                AesManaged aes = new AesManaged();
+                aes.Padding = PaddingMode.Zeros;
+                ICryptoTransform encryptor = aes.CreateDecryptor("1234567812345678".GetASCIIBytes(), "1234567812345678".GetASCIIBytes());
+                
+                string data2;
+                using (MemoryStream ms = new MemoryStream(rec_bytes))
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader sr = new StreamReader(cs))
+                            {
+                                data2 = sr.ReadLine();
+                                data2 = data2.Split('\0')[0];
+                            }
+                    }
+                }
+                
+                //var data2 = "";
+
+                
+
                 string data = Encoding.ASCII.GetString(rec_bytes, 0, bytesRec);
-                Net_Base basePacket = JsonConvert.DeserializeObject<Net_Base>(data);
+                Net_Base basePacket = JsonConvert.DeserializeObject<Net_Base>(data2);
 
                 switch (basePacket.OpCode)
                 {
@@ -45,24 +97,25 @@ namespace SimpleChatServerSideCode
                         Console.WriteLine("Debugging Works");
                         break;
                     case OpCode.EmployeeRegister:
-                        await CheckEmployeeRegister(socket, data);
+                        await CheckEmployeeRegister(socket, data2);
                         break;
                     case OpCode.EmployeeLogin:
-                        await CheckEmployeeLogin(socket, data);
+                        await CheckEmployeeLogin(socket, data2);
                         break;
                     case OpCode.GetOnlineEmployees:
-                        CheckGetOnlineEmployee(socket, data);
+                        CheckGetOnlineEmployee(socket, data2);
                         break;
                     case OpCode.SendMessage:
-                        CheckSendMessage(socket, data);
+                        CheckSendMessage(socket, data2);
                         break;
                     default:
                         break;
                 }
 
                 ReceiveAsync(socket);
+                
             }
-            catch (Exception)
+            catch (DivideByZeroException)
             {
                 var employee = EmployeeManager.GetEmployeeFromSocket(socket);
                 Net_Log log = new Net_Log($"Employee {employee.Email} has logged out. Session time:{DateTime.UtcNow - employee.LoginTime}", LogType.LogOut);
@@ -71,6 +124,14 @@ namespace SimpleChatServerSideCode
                 //Socket Disconnected?
             }
 
+        }
+
+        private static bool App_CertificateValidation(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            if (sslPolicyErrors == SslPolicyErrors.None) { return true; }
+            if (sslPolicyErrors == SslPolicyErrors.RemoteCertificateChainErrors) { return true; } //we don't have a proper certificate tree
+            Console.WriteLine("*** SSL Error: " + sslPolicyErrors.ToString());
+            return false;
         }
 
         private static void CheckSendMessage(Socket socket, string data)

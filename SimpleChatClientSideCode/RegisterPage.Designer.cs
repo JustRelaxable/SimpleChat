@@ -115,7 +115,7 @@ namespace SimpleChatClientSideCode
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SimpleChat - Register";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RegisterPage_FormClosed);
-            this.Load += new System.EventHandler(this.RegisterPage_Load);
+            //this.Load += new System.EventHandler(this.RegisterPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -33,12 +33,12 @@ namespace SimpleChatClientSideCode
 
         private async void RegisterButton_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(IdentityNumberTextBox.Text) && !string.IsNullOrEmpty(PasswordTextBox.Text) && !string.IsNullOrEmpty(VerifyTextBox.Text) && !string.IsNullOrEmpty(EmailTextBox.Text))
+            if(!string.IsNullOrEmpty(PasswordTextBox.Text) && !string.IsNullOrEmpty(VerifyTextBox.Text) && !string.IsNullOrEmpty(EmailTextBox.Text))
             {
                 if(PasswordTextBox.Text == VerifyTextBox.Text)
                 {
                     //Send to server
-                    Net_EmployeeRegister employeeRegister = new Net_EmployeeRegister(EmailTextBox.Text, IdentityNumberTextBox.Text, Utilities.ComputeSha256Hash(VerifyTextBox.Text));
+                    Net_EmployeeRegister employeeRegister = new Net_EmployeeRegister(EmailTextBox.Text, null, Utilities.ComputeSha256Hash(VerifyTextBox.Text));
                     SocketManager.ClientSocket.SendFromManager(employeeRegister);
                     
                 }
