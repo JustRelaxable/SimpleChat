@@ -183,17 +183,19 @@ namespace SimpleChatClientSideCode
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-            if(OnlineEmployeeListBox.SelectedItem != null && (string)OnlineEmployeeListBox.SelectedItem != EmployeeCreditentals.Email)
+            if(OnlineEmployeeListBox.SelectedItem != null && (string)OnlineEmployeeListBox.SelectedItem != EmployeeCreditentals.Email && MessageField.Text.Trim() != "")
             {
                 if((string)OnlineEmployeeListBox.SelectedItem == "Active Users")
                 {
-                    Net_SendMessage sendMessage = new Net_SendMessage(MessageField.Text, (string)OnlineEmployeeListBox.SelectedItem, EmployeeCreditentals.Token, true);
+                    Net_SendMessage sendMessage = new Net_SendMessage(MessageField.Text.Trim(), (string)OnlineEmployeeListBox.SelectedItem, EmployeeCreditentals.Token, true);
                     SocketManager.ClientSocket.SendFromManager(sendMessage);
+                    MessageField.Clear();
                 }
                 else
                 {
-                    Net_SendMessage sendMessage = new Net_SendMessage(MessageField.Text, (string)OnlineEmployeeListBox.SelectedItem,EmployeeCreditentals.Token,false);
+                    Net_SendMessage sendMessage = new Net_SendMessage(MessageField.Text.Trim(), (string)OnlineEmployeeListBox.SelectedItem,EmployeeCreditentals.Token,false);
                     SocketManager.ClientSocket.SendFromManager(sendMessage);
+                    MessageField.Clear();
                 }
 
             }
@@ -234,6 +236,14 @@ namespace SimpleChatClientSideCode
             DBLogView.DataSource = null;
             Net_GetDBLogs getDBLogs = new Net_GetDBLogs(EmployeeCreditentals.Token);
             SocketManager.ClientSocket.SendFromManager(getDBLogs);
+        }
+
+        private void MessageField_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                SendButton_Click(sender, e);
+            }
         }
     }
 }

@@ -72,5 +72,13 @@ namespace SimpleChatClientSideCode
             this.Hide();
             new RegisterPage(this).Show();
         }
+
+        private void EmailTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                LoginButton_Click(sender, e);
+            }
+        }
     }
 }

@@ -67,6 +67,7 @@ namespace SimpleChatClientSideCode
             this.MessageField.Name = "MessageField";
             this.MessageField.Size = new System.Drawing.Size(330, 50);
             this.MessageField.TabIndex = 2;
+            this.MessageField.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MessageField_KeyPress);
             // 
             // SendButton
             // 
@@ -94,6 +95,8 @@ namespace SimpleChatClientSideCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(597, 393);
             this.Controls.Add(this.richTextBox);
@@ -101,6 +104,7 @@ namespace SimpleChatClientSideCode
             this.Controls.Add(this.MessageField);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.OnlineEmployeeListBox);
+            this.MinimumSize = new System.Drawing.Size(613, 432);
             this.Name = "MainPage";
             this.Text = "SimpleChat - So Simple A Human Could Use It™";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainPage_FormClosed);

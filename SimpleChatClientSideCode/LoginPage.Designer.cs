@@ -61,6 +61,7 @@ namespace SimpleChatClientSideCode
             this.EmailTextBox.Name = "EmailTextBox";
             this.EmailTextBox.Size = new System.Drawing.Size(229, 23);
             this.EmailTextBox.TabIndex = 2;
+            this.EmailTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EmailTextBox_KeyPress);
             // 
             // PasswordTextBox
             // 
@@ -69,6 +70,7 @@ namespace SimpleChatClientSideCode
             this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(229, 23);
             this.PasswordTextBox.TabIndex = 3;
+            this.PasswordTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EmailTextBox_KeyPress);
             // 
             // LoginButton
             // 
@@ -94,6 +96,8 @@ namespace SimpleChatClientSideCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(322, 147);
             this.Controls.Add(this.RegisterPageButton);
@@ -102,6 +106,7 @@ namespace SimpleChatClientSideCode
             this.Controls.Add(this.EmailTextBox);
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.EmailLabel);
+            this.MinimumSize = new System.Drawing.Size(338, 186);
             this.Name = "LoginPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SimpleChat - Login";

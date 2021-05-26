@@ -70,6 +70,7 @@ namespace SimpleChatClientSideCode
             this.MessageField.Name = "MessageField";
             this.MessageField.Size = new System.Drawing.Size(330, 50);
             this.MessageField.TabIndex = 2;
+            this.MessageField.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MessageField_KeyPress);
             // 
             // SendButton
             // 
@@ -95,11 +96,13 @@ namespace SimpleChatClientSideCode
             // 
             // DBLogView
             // 
+            this.DBLogView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DBLogView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DBLogView.Location = new System.Drawing.Point(584, 18);
+            this.DBLogView.Location = new System.Drawing.Point(583, 18);
             this.DBLogView.Name = "DBLogView";
+            this.DBLogView.ReadOnly = true;
             this.DBLogView.RowTemplate.Height = 25;
-            this.DBLogView.Size = new System.Drawing.Size(568, 304);
+            this.DBLogView.Size = new System.Drawing.Size(550, 304);
             this.DBLogView.TabIndex = 6;
             // 
             // DBLogRefresh
@@ -108,7 +111,7 @@ namespace SimpleChatClientSideCode
             this.DBLogRefresh.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.DBLogRefresh.Location = new System.Drawing.Point(584, 328);
             this.DBLogRefresh.Name = "DBLogRefresh";
-            this.DBLogRefresh.Size = new System.Drawing.Size(568, 50);
+            this.DBLogRefresh.Size = new System.Drawing.Size(549, 50);
             this.DBLogRefresh.TabIndex = 7;
             this.DBLogRefresh.Text = "🔁";
             this.DBLogRefresh.UseVisualStyleBackColor = true;
@@ -118,8 +121,10 @@ namespace SimpleChatClientSideCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1164, 393);
+            this.ClientSize = new System.Drawing.Size(1154, 393);
             this.Controls.Add(this.DBLogRefresh);
             this.Controls.Add(this.DBLogView);
             this.Controls.Add(this.richTextBox);
@@ -127,6 +132,7 @@ namespace SimpleChatClientSideCode
             this.Controls.Add(this.MessageField);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.OnlineEmployeeListBox);
+            this.MinimumSize = new System.Drawing.Size(1170, 432);
             this.Name = "MainPageSu";
             this.Text = "SimpleChat - So Simple A Human Could Use It™";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainPage_FormClosed);

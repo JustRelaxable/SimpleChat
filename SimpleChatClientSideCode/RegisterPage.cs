@@ -66,5 +66,13 @@ namespace SimpleChatClientSideCode
                 MessageBox.Show("All text boxes should be filled!", "Info", MessageBoxButtons.OK);
             }
         }
+
+        private void EmailTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                RegisterButton_Click(sender, e);
+            }
+        }
     }
 }
