@@ -29,7 +29,7 @@ namespace SimpleChatClientSideCode
         static SocketManager()
         {
             ClientSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("13.94.132.28"), 53869));
+            ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 53869));
             
             ReceiveAsync();
         }
