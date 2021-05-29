@@ -13,7 +13,7 @@ namespace SimpleChatServerSideCode
         public static WebServicesAPI instance { get; private set; }
         static WebAPI()
         {
-            instance = new WebServicesAPI("https://localhost:44387/", new HttpClient());
+            instance = new WebServicesAPI("http://localhost:44387/", new HttpClient());
         }
     }
 }
