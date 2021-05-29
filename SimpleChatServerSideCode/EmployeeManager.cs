@@ -23,6 +23,11 @@ namespace SimpleChatServerSideCode
             return instance.socketDictionary.ContainsKey(socket);
         }
 
+        public static bool HasEmployeeSignedIn(string email)
+        {
+            return instance.mailDictionary.ContainsKey(email);
+        }
+
         public static void AddOnlineEmployee(OnlineEmployee employee)
         {
             instance.socketDictionary.Add(employee.Socket, employee);
