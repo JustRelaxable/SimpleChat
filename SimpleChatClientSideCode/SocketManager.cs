@@ -32,20 +32,17 @@ namespace SimpleChatClientSideCode
             ClientSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
 
             Ping loadCheck = new Ping();
-            PingReply reply = loadCheck.Send("13.94.132.28", 53869);
+            PingReply reply = loadCheck.Send("13.94.132.28", 1000);
 
             if (reply.Status == 0)
             {
-
                 ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("13.94.132.28"), 53869));
             }
 
             else
             {
-
                 ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("20.79.98.217"), 53869));
             }
-
             ReceiveAsync();
         }
         public static void SendFromManager(this Socket socket,Net_Base packet)
