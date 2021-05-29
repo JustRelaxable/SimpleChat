@@ -13,6 +13,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography;
 using System.Security.Authentication;
+using System.Net.NetworkInformation;
 
 namespace SimpleChatClientSideCode
 {
@@ -29,8 +30,22 @@ namespace SimpleChatClientSideCode
         static SocketManager()
         {
             ClientSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 53869));
-            
+
+            Ping loadCheck = new Ping();
+            PingReply reply = loadCheck.Send("13.94.132.28", 53869);
+
+            if (reply.Status == 0)
+            {
+
+                ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("13.94.132.28"), 53869));
+            }
+
+            else
+            {
+
+                ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("20.79.98.217"), 53869));
+            }
+
             ReceiveAsync();
         }
         public static void SendFromManager(this Socket socket,Net_Base packet)
