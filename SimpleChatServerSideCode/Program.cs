@@ -15,9 +15,8 @@ namespace SimpleChatServerSideCode
             //Net_EmployeeRegister employeeInformation = new Net_EmployeeRegister() { IdentityNumber = "12345678900", PasswordHash = "XD" };
             //var data = WebAPI.instance.EmployeeRegisterAsync(JsonConvert.SerializeObject(employeeInformation)).Result;
             //Console.WriteLine(data.ToArray()[0]);
-            Console.WriteLine("Please enter ip:");
-            string ip = Console.ReadLine();
-            SocketManager socketManager = new SocketManager(ip);
+
+            SocketManager socketManager = new SocketManager();
             ThreadStart threadStart = socketManager.Accept;
             Thread t = new Thread(threadStart);
             t.Start();

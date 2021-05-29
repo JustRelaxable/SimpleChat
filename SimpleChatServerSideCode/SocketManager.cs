@@ -23,10 +23,10 @@ namespace SimpleChatServerSideCode
         private static readonly string ServerCertificatePassword = null;
         X509Certificate2 serverCertificate = new X509Certificate2(ServerCertificateFile, ServerCertificatePassword);
         */
-        public SocketManager(string ip)
+        public SocketManager()
         {
             serverSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            serverSocket.Bind(new IPEndPoint(IPAddress.Parse(ip), 53869));
+            serverSocket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 53869));
             serverSocket.Listen();
         }
 
@@ -294,13 +294,12 @@ namespace SimpleChatServerSideCode
         private static async Task CheckEmployeeLogin(Socket socket, string data)
         {
             Net_EmployeeLogin loginData = JsonConvert.DeserializeObject<Net_EmployeeLogin>(data);
-            
             var response = await WebAPI.instance.EmployeeLoginAsync(JsonConvert.SerializeObject(loginData));
             var responseData = JsonConvert.DeserializeObject<Net_OnEmployeeLogin>(response.GetFirstStringRecord());
             switch (responseData.Status)
             {
                 case Status.SuccessfulLogin:
-                    if (!EmployeeManager.HasEmployeeSignedIn(loginData.Email))
+                    if (!EmployeeManager.HasEmployeeSignedIn(socket))
                     {
                         string token = Utilities.RandomString(10);
                         EmployeeManager.AddOnlineEmployee(new OnlineEmployee(socket, loginData.Email, token,responseData.IsSuperuser));
