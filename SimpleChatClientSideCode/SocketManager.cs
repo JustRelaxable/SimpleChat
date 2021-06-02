@@ -36,7 +36,7 @@ namespace SimpleChatClientSideCode
 
             if (reply.Status == 0)
             {
-                ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 53869));
+                ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("13.94.132.28"), 53869));
             }
 
             else
