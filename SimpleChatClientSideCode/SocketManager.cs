@@ -36,7 +36,7 @@ namespace SimpleChatClientSideCode
 
             if (reply.Status == 0)
             {
-                ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("13.94.132.28"), 53869));
+                ClientSocket.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 53869));
             }
 
             else
@@ -109,7 +109,25 @@ namespace SimpleChatClientSideCode
                 int bytesRec = await ClientSocket.ReceiveAsync(bytesSeg, SocketFlags.None);
                 ReceiveAsync();
                 //int bytesRec = await SslStream.ReadAsync(bytesSeg);
-                string data = Encoding.ASCII.GetString(rec_bytes, 0, bytesRec);
+
+                AesManaged aes = new AesManaged();
+                aes.Padding = PaddingMode.Zeros;
+                ICryptoTransform encryptor = aes.CreateDecryptor("1234567812345678".GetASCIIBytes(), "1234567812345678".GetASCIIBytes());
+
+                string data;
+                using (MemoryStream ms = new MemoryStream(rec_bytes))
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader sr = new StreamReader(cs))
+                        {
+                            data = sr.ReadLine();
+                            data = data.Split('\0')[0];
+                        }
+                    }
+                }
+
+                //string data = Encoding.ASCII.GetString(rec_bytes, 0, bytesRec);
                 Net_Base basePacket = JsonConvert.DeserializeObject<Net_Base>(data);
                 
 

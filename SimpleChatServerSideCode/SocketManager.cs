@@ -91,6 +91,8 @@ namespace SimpleChatServerSideCode
                 
 
                 string data = Encoding.ASCII.GetString(rec_bytes, 0, bytesRec);
+
+
                 Net_Base basePacket = JsonConvert.DeserializeObject<Net_Base>(data2);
 
                 switch (basePacket.OpCode)
@@ -150,13 +152,13 @@ namespace SimpleChatServerSideCode
                         logs.Add(log);
                     }
                     Net_OnGetDBLogs onGetDBLogs = new Net_OnGetDBLogs(logs, (byte)i, packages, Status.Successful);
-                    socket.Send(onGetDBLogs.GetByte());
+                    socket.SendFromManager(onGetDBLogs);
                     ReceiveAck(socket);
                 }
             }
             else
             {
-                socket.Send(new Net_OnGetDBLogs(null, 0, 0, Status.Error).GetByte());
+                socket.SendFromManager(new Net_OnGetDBLogs(null, 0, 0, Status.Error));
             }
         }
 
@@ -252,7 +254,7 @@ namespace SimpleChatServerSideCode
                     WebAPI.instance.DBLogAsync(JsonConvert.SerializeObject(log));
                     foreach (var sc in socketList)
                     {
-                        sc.Send(onSendMessage.GetByte());
+                        sc.SendFromManager(onSendMessage);
                     }
                 }
                 else
@@ -264,14 +266,14 @@ namespace SimpleChatServerSideCode
                     Net_Log log = new Net_Log($"Employee {EmployeeManager.GetEmployeeFromSocket(socket).Email} has sent message to {EmployeeManager.GetEmployeeFromSocket(receiverSocket).Email}.", LogType.PrivateMessage);
                     WebAPI.instance.DBLogAsync(JsonConvert.SerializeObject(log));
 
-                    receiverSocket.Send(receiveMessage.GetByte());
-                    socket.Send(receiveMessage.GetByte());
+                    receiverSocket.SendFromManager(receiveMessage);
+                    socket.SendFromManager(receiveMessage);
                 }
             }
             else
             {
                 receiveMessage = new Net_OnSendMessage(null, null, null,false, Status.Error);
-                socket.Send(receiveMessage.GetByte());
+                socket.SendFromManager(receiveMessage);
             }
         }
 
@@ -288,7 +290,7 @@ namespace SimpleChatServerSideCode
             {
                 onGetOnlineEmployees = new Net_OnGetOnlineEmployees(null, Status.Error);
             }
-            socket.Send(onGetOnlineEmployees.GetByte());
+            socket.SendFromManager(onGetOnlineEmployees);
         }
 
         private static async Task CheckEmployeeLogin(Socket socket, string data)
@@ -310,10 +312,10 @@ namespace SimpleChatServerSideCode
                     {
                         responseData.Status = Status.AlreadyLoggedIn;
                     }
-                    socket.Send(responseData.GetByte());
+                    socket.SendFromManager(responseData);
                     break;
                 case Status.WrongEmailOrPassword:
-                    socket.Send(responseData.GetByte());
+                    socket.SendFromManager(responseData);
                     break;
                 default:
                     break;
@@ -324,7 +326,7 @@ namespace SimpleChatServerSideCode
         {
             Net_EmployeeRegister registerData = JsonConvert.DeserializeObject<Net_EmployeeRegister>(data);
             var response = await WebAPI.instance.EmployeeRegisterAsync(JsonConvert.SerializeObject(registerData));
-            socket.Send(response.ToArray()[0].GetASCIIBytes());
+            socket.SendFromManager(JsonConvert.DeserializeObject<Net_OnEmployeeRegister>(response.ToArray()[0]));
         }
     }
 }
