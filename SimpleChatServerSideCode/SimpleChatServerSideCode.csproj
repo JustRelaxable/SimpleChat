@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="OpenAPIs\swagger.json" CodeGenerator="NSwagCSharp" ClassName="WebServicesAPI">
+    <OpenApiReference Include="OpenAPIs\swagger1.json" CodeGenerator="NSwagCSharp" ClassName="WebServicesAPI">
       <SourceUri>https://localhost:44387/swagger/v1/swagger.json</SourceUri>
     </OpenApiReference>
   </ItemGroup>
@@ -21,6 +21,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="OpenAPIs\index.html" ClassName="WebServicesAPI" />
+    <None Update="OpenAPIs\swagger.json" ClassName="WebServicesAPI" />
   </ItemGroup>
 
   <Import Project="..\SimpleChatSharedCode\SimpleChatSharedCode.projitems" Label="Shared" />
